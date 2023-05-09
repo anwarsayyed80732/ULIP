@@ -2,11 +2,12 @@ import React from "react";
 import logo from "../../assets/images/Icon_resized_square.webp";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import ButtonSecondary from "../atoms/ButtonSecondary";
+import { Link } from "react-router-dom";
 
 export default function Navbar(props) {
   return (
-    <div className="absolute bg-none w-screen flex justify-between items-center">
-      <a href="#home">
+    <div className="fixed top-0 right-0 bg-none w-screen flex justify-between items-center">
+      <Link to="/">
         <img
           src={logo}
           alt="ULIP"
@@ -14,21 +15,29 @@ export default function Navbar(props) {
           height="70px"
           className="ml-5 md:ml-20 py-2"
         ></img>
-      </a>
+      </Link>
       {props.type === "landing" && (
         <div className="flex justify-center items-center">
-          <div className="max-h-14 mr-4 block md:hidden">
-            <ButtonPrimary text="Log In" size="base" />
-          </div>
-          <div className="max-h-14 mr-4 hidden md:block">
-            <ButtonPrimary text="Log In" size="lg" />
-          </div>
-          <div className="max-h-14 mr-5 block md:hidden">
-            <ButtonSecondary text="Sign Up" size="base" />
-          </div>
-          <div className="max-h-14 mr-20 hidden md:block">
-            <ButtonSecondary text="Sign Up" size="lg" />
-          </div>
+          <Link to="/login">
+            <div className="max-h-14 mr-4 block md:hidden">
+              <ButtonPrimary text="Log In" size="base" />
+            </div>
+          </Link>
+          <Link to="/login">
+            <div className="max-h-14 mr-4 hidden md:block">
+              <ButtonPrimary text="Log In" size="lg" />
+            </div>
+          </Link>
+          <Link to="/signup">
+            <div className="max-h-14 mr-5 block md:hidden">
+              <ButtonSecondary text="Sign Up" size="base" />
+            </div>
+          </Link>
+          <Link to="/signup">
+            <div className="max-h-14 mr-20 hidden md:block">
+              <ButtonSecondary text="Sign Up" size="lg" />
+            </div>
+          </Link>
         </div>
       )}
     </div>

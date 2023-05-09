@@ -9,12 +9,10 @@ export default function Home() {
   return (
     <>
       <Navbar type="landing" />
-      <div id="home">
         <Landing />
         <About />
         <Features />
         <Footer />
-      </div>
     </>
   );
 }
