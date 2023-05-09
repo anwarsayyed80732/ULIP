@@ -104,7 +104,7 @@ export default function Signup() {
   return (
     <>
       <Navbar />
-      <div className="w-screen h-[78vh] flex justify-evenly items-center m-20">
+      <div className="w-screen h-[78vh] flex justify-evenly items-center md:m-20">
         <img
           src={signupIcon}
           alt="Login"
@@ -113,7 +113,7 @@ export default function Signup() {
           className="hidden md:block"
         />
 
-        <div className="min-w-[25vw] bg-background-secondary mx-7 rounded-xl shadow-2xl">
+        <div className="min-w-[25vw] bg-background-secondary mx-7 rounded-xl shadow-2xl mt-32 md:mt-0">
           <div className="p-4 flex flex-col items-center justify-center">
             <h1 className="text-3xl m-3 mb-5 font-normal">
               Signup for <span className="text-orange-primary">ULIP</span>
