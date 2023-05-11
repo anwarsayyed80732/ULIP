@@ -37,10 +37,10 @@ export default function ShipmentRequest() {
   };
 
   const onSubmit = (e) => {
-    // Validate whether all the fields are filled
+    // IMP: Validate whether all the fields are filled
     console.log(shipmentDetails);
     
-    // Add the shipment request url here after the backend is completed.
+    // IMP: Add the shipment request url here after the backend is completed.
     const shipmentRequestUrl = "";
     axios
       .post(shipmentRequestUrl, shipmentDetails)

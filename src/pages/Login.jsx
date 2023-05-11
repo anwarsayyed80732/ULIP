@@ -49,7 +49,7 @@ export default function Login() {
       return;
     }
 
-    // Add the login endpoint URL here after the backend is completed and ensure that user is navigated to the proper screen
+    // IMP: Add the login endpoint URL here after the backend is completed and ensure that user is navigated to the proper screen
     const loginUrl = "";
     axios
       .post(loginUrl, credentials)

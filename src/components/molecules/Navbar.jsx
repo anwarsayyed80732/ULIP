@@ -38,11 +38,17 @@ export default function Navbar(props) {
               <ButtonSecondary text="Sign Up" size="lg" />
             </div>
           </Link>
+
+          {/* IMP: Remove after testing */}
+          <Link to={"/dashboard"}>
+            <button>Dashboard</button>
+          </Link>
+          
         </div>
       )}
 
-      {/* Once the backend is completed perform proper logout by deleting the cookie */}
-      {props.type === 'loggedin' && (
+      {/* IMP: Once the backend is completed perform proper logout by deleting the cookie */}
+      {props.type === "loggedin" && (
         <div className="flex justify-center items-center">
           <Link to="/">
             <div className="max-h-14 mr-5 block md:hidden">
