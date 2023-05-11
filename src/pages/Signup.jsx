@@ -163,12 +163,12 @@ export default function Signup() {
 
               <div className="mt-4 flex justify-center items-center">
                 <input
-                  type="tel"
+                  type="number"
                   name="phone_no"
                   placeholder="Phone No"
                   onChange={onChange}
-                  className="p-3 rounded-lg outline-none text-xl bg-background-tertiary placeholder-white"
-                  pattern="[0-9]{10}"
+                  className="p-3 rounded-lg outline-none text-xl bg-background-tertiary placeholder-white w-full xl:max-w-[23vw]"
+                  pattern="\d{10}"
                 />
               </div>
               {isPhoneNoValid === false && (

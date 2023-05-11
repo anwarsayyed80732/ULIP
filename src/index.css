@@ -39,3 +39,7 @@ code {
 ::-webkit-scrollbar-thumb:hover {
   background: #843b14;
 }
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
