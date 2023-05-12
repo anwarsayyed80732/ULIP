@@ -11,7 +11,7 @@ export default function Features() {
           <h2 className="text-5xl pb-10">Features and Benefits</h2>
         </div>
         <div className="hidden md:flex md:justify-center">
-          <div className="w-1/5 h-52 md:h-64 xl:h-80 my-5 mx-10 rounded-xl bg-background-secondary shadow-lg shadow-orange-light cursor-pointer hover:scale-110 transition-all duration-200">
+          <div className="w-1/5 h-52 md:h-64 xl:h-80 my-5 mx-10 rounded-xl bg-background-secondary shadow-bottom cursor-pointer hover:scale-110 transition-all duration-200">
             <img
               src={logistics}
               alt="Logistics"
@@ -21,7 +21,7 @@ export default function Features() {
               Simplified<br></br> <span className="text-orange-primary">Logistics<br></br> Management</span>
             </p>
           </div>
-          <div className="w-1/5 h-52 md:h-64 xl:h-80 my-5 mx-10 rounded-xl bg-background-secondary shadow-lg shadow-orange-light cursor-pointer hover:scale-110 transition-all duration-200">
+          <div className="w-1/5 h-52 md:h-64 xl:h-80 my-5 mx-10 rounded-xl bg-background-secondary shadow-bottom cursor-pointer hover:scale-110 transition-all duration-200">
             <img
               src={savings}
               alt="savings"
@@ -31,7 +31,7 @@ export default function Features() {
               Saves<br></br> <span className="text-orange-primary">Time &<br></br> Money</span>
             </p>
           </div>
-          <div className="w-1/5 h-52 md:h-64 xl:h-80 my-5 mx-10 rounded-xl bg-background-secondary shadow-lg shadow-orange-light cursor-pointer hover:scale-110 transition-all duration-200">
+          <div className="w-1/5 h-52 md:h-64 xl:h-80 my-5 mx-10 rounded-xl bg-background-secondary shadow-bottom cursor-pointer hover:scale-110 transition-all duration-200">
             <img
               src={certification}
               alt="certification"
@@ -43,7 +43,7 @@ export default function Features() {
           </div>
         </div>
         <div className="md:hidden flex flex-col items-center justify-center">
-          <div className="w-3/4 h-auto p-5 my-5 mx-10 rounded-xl bg-background-secondary shadow-lg shadow-orange-light">
+          <div className="w-3/4 h-auto p-5 my-5 mx-10 rounded-xl bg-background-secondary shadow-bottom">
             <img
               src={logistics}
               alt="Logistics"
@@ -53,7 +53,7 @@ export default function Features() {
               Simplified <br></br> <span className="text-orange-primary">Logistics Management</span>
             </p>
           </div>
-          <div className="w-3/4 h-auto p-5 my-5 mx-10 rounded-xl bg-background-secondary shadow-lg shadow-orange-light">
+          <div className="w-3/4 h-auto p-5 my-5 mx-10 rounded-xl bg-background-secondary shadow-bottom">
             <img
               src={savings}
               alt="savings"
@@ -63,7 +63,7 @@ export default function Features() {
               Saves <br></br> <span className="text-orange-primary">Time & Money</span>
             </p>
           </div>
-          <div className="w-3/4 h-auto p-5 my-5 mx-10 rounded-xl bg-background-secondary shadow-lg shadow-orange-light">
+          <div className="w-3/4 h-auto p-5 my-5 mx-10 rounded-xl bg-background-secondary shadow-bottom">
             <img
               src={certification}
               alt="certification"
