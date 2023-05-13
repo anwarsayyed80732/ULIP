@@ -40,9 +40,9 @@ export default function Navbar(props) {
           </Link>
 
           {/* IMP: Remove after testing */}
-          <Link to={"/dashboard"}>
+          {/* <Link to={"/dashboard"}>
             <button>Dashboard</button>
-          </Link>
+          </Link> */}
           
         </div>
       )}
