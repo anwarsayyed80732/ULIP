@@ -47,7 +47,14 @@ export default function ShipmentRequest() {
       .then((response) => console.log(response))
       .catch((err) => {
         console.log(err);
-        alert("Uh-oh! Unable to create a request at the moment :(");
+        var userPreference;
+
+      if (confirm("Are you sure you want to continue the shipment? \nOnce submitted you cannot cancel the request") == true) {
+          userPreference = "Data saved successfully!";
+          } else {
+          userPreference = "Save Cancelled!";
+}
+       
       });
   };
 
