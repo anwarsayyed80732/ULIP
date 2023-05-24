@@ -24,7 +24,6 @@ export const getFormattedDate = (date) => {
  */
 export const getDisplayDate = (dateString) => {
   const date = new Date(dateString)
-  console.log(date);
   const month = ["Jan", "Feb", "Mar", "Apl", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
   const resultDateString = date.getDate() + " " + month[date.getMonth()] + ", " + date.getFullYear();
   return resultDateString

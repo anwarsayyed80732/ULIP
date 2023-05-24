@@ -1,8 +1,9 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Navbar from "../components/molecules/Navbar";
 import loginIcon from "../assets/vectors/login.svg";
 import ButtonPrimary from "../components/atoms/ButtonPrimary";
 import { Link, useNavigate } from "react-router-dom";
+import cookies from "js-cookie";
 import axios from "axios";
 
 export default function Login() {
@@ -12,6 +13,11 @@ export default function Login() {
   });
 
   const navigate = useNavigate();
+  useEffect(() => {
+    if (cookies.get("auth")) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordEntered, setIsPasswordEntered] = useState(true);
@@ -50,11 +56,15 @@ export default function Login() {
     }
 
     // IMP: Add the login endpoint URL here after the backend is completed and ensure that user is navigated to the proper screen
-    const loginUrl = "";
+    const loginUrl = `http://localhost:3000/users/login`;
     axios
       .post(loginUrl, credentials)
       .then((response) => {
         console.log(response.data);
+
+        if (response.data.userId) {
+          cookies.set("userId", response.data.userId, { path: "/" });
+        }
 
         if (response.data.token) {
           setIsLoggedIn(true);

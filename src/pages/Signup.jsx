@@ -1,9 +1,10 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Navbar from "../components/molecules/Navbar";
 import signupIcon from "../assets/vectors/signup.svg";
 import ButtonPrimary from "../components/atoms/ButtonPrimary";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import cookies from "js-cookie";
 
 export default function Signup() {
   const [isValidUser, setIsValidUser] = useState(null);
@@ -16,12 +17,19 @@ export default function Signup() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (cookies.get("auth")) {
+      navigate("/dashboard");
+    }
+  }, []);
+
   const [userDetails, setUserDetails] = useState({
     name: "",
     email: "",
-    phone_no: "",
+    phone: "",
     companyName: "",
     password: "",
+    typeofUser: "NOTADMIN",
   });
 
   const togglePasswordVisibility = () => {
@@ -66,7 +74,7 @@ export default function Signup() {
       return;
     }
 
-    if (/^\d{10}$/.test(userDetails.phone_no)) {
+    if (/^\d{10}$/.test(userDetails.phone)) {
       setIsPhoneNoValid(true);
     } else {
       setIsPhoneNoValid(false);
@@ -81,22 +89,27 @@ export default function Signup() {
     }
 
     // IMP: Add the Signup endpoint url here after backend is completed and also might have to remove the check for userAlreadyExists
-    const signupUrl = ``;
+    const signupUrl = `http://localhost:3000/users/register`;
 
     axios
       .post(signupUrl, userDetails)
       .then((response) => {
-        console.log(response.data);
-
-        if (response.data.userAlreadyExists) {
-          setIsValidUser(false);
-        } else if (response.data.status) {
+        if (response.data) {
           setIsSignupSuccess(true);
           alert("Yay! Account created successfully. Please login to continue");
           navigate("/login");
         } else {
           setIsSignupSuccess(false);
         }
+        // if (response.data.userAlreadyExists) {
+        //   setIsValidUser(false);
+        // } else if (response.data.status) {
+        //   setIsSignupSuccess(true);
+        //   alert("Yay! Account created successfully. Please login to continue");
+        //   navigate("/login");
+        // } else {
+        //   setIsSignupSuccess(false);
+        // }
       })
       .catch((err) => console.log(err));
   };
@@ -164,7 +177,7 @@ export default function Signup() {
               <div className="mt-4 flex justify-center items-center">
                 <input
                   type="number"
-                  name="phone_no"
+                  name="phone"
                   placeholder="Phone No"
                   onChange={onChange}
                   className="p-3 rounded-lg outline-none text-xl bg-background-tertiary placeholder-white w-full xl:max-w-[23vw]"

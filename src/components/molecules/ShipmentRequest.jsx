@@ -3,59 +3,64 @@ import ButtonPrimary from "../atoms/ButtonPrimary";
 import { capitalize } from "../../helpers/wordHelper";
 import { getFormattedDate } from "../../helpers/dateHelper";
 import axios from "axios";
+import { generateAuthHeader } from "../../helpers/axiosHelper";
+import { useNavigate } from "react-router-dom";
 
-export default function ShipmentRequest() {
+export default function ShipmentRequest({ cities }) {
+  const navigate = useNavigate();
 
-  const cities = [
-    { id: 0, name: "new delhi" },
-    { id: 1, name: "mumbai" },
-    { id: 2, name: "bengaluru" },
-    { id: 3, name: "chennai" },
-    { id: 4, name: "hyderabad" },
-    { id: 5, name: "kolkata" },
-    { id: 6, name: "pune" },
-    { id: 7, name: "ahmedabad" },
-    { id: 8, name: "jaipur" },
-    { id: 9, name: "kochi" },
+  const shipmentTypes = [
+    "machinery",
+    "liquid bulk",
+    "dry bulk",
+    "live stock",
+    "refrigerated cargo",
+    "pharmaceutical drugs",
   ];
 
   const [shipmentDetails, setShipmentDetails] = useState({
-    source: cities[0].name,
-    destination: cities[1].name,
+    source: 0,
+    destination: 1,
     date: getFormattedDate(new Date()),
     quantity: 100,
+    shipmentType: shipmentTypes[0],
   });
 
   const onChange = (e) => {
     setShipmentDetails((details) => ({
       ...details,
       [e.target.name]:
-        e.target.name === "quantity"
+        e.target.name != "date" && e.target.name != "shipmentType"
           ? parseInt(e.target.value)
           : e.target.value,
     }));
   };
 
   const onSubmit = (e) => {
+    e.preventDefault();
     // IMP: Validate whether all the fields are filled
     console.log(shipmentDetails);
 
-    // IMP: Add the shipment request url here after the backend is completed.
-    const shipmentRequestUrl = "";
-    axios
-      .post(shipmentRequestUrl, shipmentDetails)
-      .then((response) => console.log(response))
-      .catch((err) => {
-        console.log(err);
-        var userPreference;
-
-      if (confirm("Are you sure you want to continue the shipment? \nOnce submitted you cannot cancel the request") == true) {
-          userPreference = "Data saved successfully!";
-          } else {
-          userPreference = "Save Cancelled!";
-}
-       
-      });
+    if (
+      confirm(
+        "Are you sure you want to continue the shipment? \nOnce submitted you cannot cancel the request"
+      ) == true
+    ) {
+      const axiosConfig = generateAuthHeader();
+      const shipmentRequestUrl = "http://localhost:3000/hubs/addshipment";
+      axios
+        .post(shipmentRequestUrl, shipmentDetails, axiosConfig)
+        .then((response) => console.log(response))
+        .catch((err) => {
+          console.log(err);
+          alert(
+            "Uh-oh, couldn't reach our servers at the moment. We regret the inconvenience caused :("
+          );
+          navigate("/");
+        });
+    } else {
+      Navigate(0);
+    }
   };
 
   return (
@@ -63,7 +68,7 @@ export default function ShipmentRequest() {
       <h2 className="text-3xl md:text-4xl">
         Request A <span className="text-orange-primary">Shipment</span>
       </h2>
-      <div className="m-5 p-4 min-h-[10vh] min-w-[50vw] md:min-w-[70vw] bg-background-secondary rounded-xl shadow-bottom">
+      <div className="m-5 p-4 min-h-[10vh] min-w-[50vw] md:min-w-[80vw] bg-background-secondary rounded-xl shadow-bottom">
         <form
           onSubmit={onSubmit}
           className="flex flex-col md:flex-row md:justify-evenly md:items-center"
@@ -80,7 +85,7 @@ export default function ShipmentRequest() {
             >
               {cities.map((city) => {
                 return (
-                  <option key={city.id} value={city.name}>
+                  <option key={city._id} value={city._id}>
                     {capitalize(city.name)}
                   </option>
                 );
@@ -99,12 +104,12 @@ export default function ShipmentRequest() {
               className="bg-background-tertiary focus-within:bg-background-primary p-3 m-2 rounded-lg outline-none cursor-pointer min-w-[10vw]"
             >
               {cities.map((city) => {
-                return city.id === 1 ? (
-                  <option key={city.id} value={city.name} selected>
+                return city._id === 1 ? (
+                  <option key={city._id} value={city._id} selected>
                     {capitalize(city.name)}
                   </option>
                 ) : (
-                  <option key={city.id} value={city.name}>
+                  <option key={city._id} value={city._id}>
                     {capitalize(city.name)}
                   </option>
                 );
@@ -126,6 +131,26 @@ export default function ShipmentRequest() {
               min={getFormattedDate(new Date())}
               className="bg-background-tertiary focus-within:bg-background-primary cursor-pointer p-3 m-2 rounded-lg outline-none min-w-[10vw]"
             />
+          </div>
+
+          <div className="flex justify-between md:flex-col md:justify-center items-center">
+            <label htmlFor="shipment-type" className="font-semibold">
+              TYPE
+            </label>
+            <select
+              name="shipmentType"
+              id="shipment-type"
+              onChange={onChange}
+              className="bg-background-tertiary focus-within:bg-background-primary p-3 m-2 rounded-lg outline-none cursor-pointer min-w-[10vw]"
+            >
+              {shipmentTypes.map((shipmentType, index) => {
+                return (
+                  <option key={index} value={shipmentType}>
+                    {capitalize(shipmentType)}
+                  </option>
+                );
+              })}
+            </select>
           </div>
 
           <div className="flex justify-between md:flex-col md:justify-center items-center">

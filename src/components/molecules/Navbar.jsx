@@ -2,9 +2,19 @@ import React from "react";
 import logo from "../../assets/images/Icon_resized_square.webp";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import ButtonSecondary from "../atoms/ButtonSecondary";
-import { Link } from "react-router-dom";
+import cookies from "js-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar(props) {
+
+  const navigate = useNavigate();
+  const handleSignOut = (e) => {
+    e.preventDefault();
+
+    cookies.remove("auth");
+    navigate("/");
+  };
+
   return (
     <div className="fixed top-0 right-0 bg-none w-screen flex justify-between items-center backdrop-blur shadow-md">
       <Link to="/">
@@ -38,12 +48,6 @@ export default function Navbar(props) {
               <ButtonSecondary text="Sign Up" size="lg" />
             </div>
           </Link>
-
-          {/* IMP: Remove after testing */}
-          {/* <Link to={"/dashboard"}>
-            <button>Dashboard</button>
-          </Link> */}
-          
         </div>
       )}
 
@@ -51,12 +55,12 @@ export default function Navbar(props) {
       {props.type === "loggedin" && (
         <div className="flex justify-center items-center">
           <Link to="/">
-            <div className="max-h-14 mr-5 block md:hidden">
+            <div className="max-h-14 mr-5 block md:hidden" onClick={handleSignOut}>
               <ButtonSecondary text="Sign Out" size="base" />
             </div>
           </Link>
           <Link to="/">
-            <div className="max-h-14 mr-20 hidden md:block">
+            <div className="max-h-14 mr-20 hidden md:block" onClick={handleSignOut}>
               <ButtonSecondary text="Sign Out" size="lg" />
             </div>
           </Link>
