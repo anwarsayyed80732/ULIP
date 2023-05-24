@@ -12,7 +12,7 @@ export default function ShipmentHistory({ cities }) {
     ongoing: false,
     upcoming: false,
   });
-  
+
   const [shipmentList, setShipmentList] = useState([]);
 
   /**
@@ -26,15 +26,19 @@ export default function ShipmentHistory({ cities }) {
 
   useEffect(() => {
     const axiosConfig = generateAuthHeader();
+    const baseUrl = import.meta.env.VITE_API_BASEURL;
 
-    const historyUrl = "http://localhost:3000/hubs/shipmenthistory";
+    const historyUrl = `${baseUrl}/hubs/shipmenthistory`;
     axios
       .get(historyUrl, axiosConfig)
       .then((response) => {
-        console.log(response.data)
-        setShipmentList(response.data.shipmentDetails)
+        console.log(response.data);
+        setShipmentList(response.data.shipmentDetails);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        alert("Uh-oh! Unable to connect to our servers. We regret the inconvenience caused :(")
+      });
   }, []);
 
   /**
@@ -99,10 +103,7 @@ export default function ShipmentHistory({ cities }) {
               cities={cities}
             />
           );
-        } else if (
-          currentTab === 2 &&
-          shipmentDetails.status === "UPCOMING"
-        ) {
+        } else if (currentTab === 2 && shipmentDetails.status === "UPCOMING") {
           return (
             <ShipmentCard
               key={shipmentDetails._id}

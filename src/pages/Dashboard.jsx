@@ -19,7 +19,9 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    const citiesUrl = "http://localhost:3000/cities/";
+    const baseUrl = import.meta.env.VITE_API_BASEURL;
+
+    const citiesUrl = `${baseUrl}/cities/`;
 
     const axiosConfig = generateAuthHeader();
     axios

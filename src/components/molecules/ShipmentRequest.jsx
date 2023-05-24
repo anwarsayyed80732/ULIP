@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 export default function ShipmentRequest({ cities }) {
   const navigate = useNavigate();
 
+  const [isInputValid, setIsInputValid] = useState(null);
+
   const shipmentTypes = [
     "machinery",
     "liquid bulk",
@@ -41,13 +43,21 @@ export default function ShipmentRequest({ cities }) {
     // IMP: Validate whether all the fields are filled
     console.log(shipmentDetails);
 
+    if (shipmentDetails.source === shipmentDetails.destination) {
+      setIsInputValid(false);
+      return;
+    } else {
+      setIsInputValid(true)
+    }
+
     if (
       confirm(
         "Are you sure you want to continue the shipment? \nOnce submitted you cannot cancel the request"
       ) == true
     ) {
       const axiosConfig = generateAuthHeader();
-      const shipmentRequestUrl = "http://localhost:3000/hubs/addshipment";
+      const baseUrl = import.meta.env.VITE_API_BASEURL;
+      const shipmentRequestUrl = `${baseUrl}/hubs/addshipment`;
       axios
         .post(shipmentRequestUrl, shipmentDetails, axiosConfig)
         .then((response) => console.log(response))
@@ -84,7 +94,11 @@ export default function ShipmentRequest({ cities }) {
               className="bg-background-tertiary focus-within:bg-background-primary p-3 m-2 rounded-lg outline-none cursor-pointer min-w-[10vw]"
             >
               {cities.map((city) => {
-                return (
+                return city._id === 0 ? (
+                  <option key={city._id} value={city._id} selected>
+                    {capitalize(city.name)}
+                  </option>
+                ) :(
                   <option key={city._id} value={city._id}>
                     {capitalize(city.name)}
                   </option>
@@ -180,6 +194,9 @@ export default function ShipmentRequest({ cities }) {
             <ButtonPrimary text="Send Request" size="lg" />
           </div>
         </form>
+        {isInputValid === false && (
+          <p className="text-red mt-2">Source and destination cannot be the same! Please choose a different city</p>
+        )}
       </div>
     </>
   );

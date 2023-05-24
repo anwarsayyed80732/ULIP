@@ -55,8 +55,9 @@ export default function Login() {
       return;
     }
 
+    const baseUrl = import.meta.env.VITE_API_BASEURL;
     // IMP: Add the login endpoint URL here after the backend is completed and ensure that user is navigated to the proper screen
-    const loginUrl = `http://localhost:3000/users/login`;
+    const loginUrl = `${baseUrl}/users/login`;
     axios
       .post(loginUrl, credentials)
       .then((response) => {
@@ -76,7 +77,11 @@ export default function Login() {
       })
       .catch((err) => {
         console.log(err);
-        alert("Unable to login at the moment :(");
+        if (err.response.status === 401) {
+          setIsLoggedIn(false);
+        } else {
+          alert("Unable to login at the moment :(");
+        }
       });
   };
 

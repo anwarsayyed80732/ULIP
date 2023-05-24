@@ -88,8 +88,9 @@ export default function Signup() {
       return;
     }
 
+    const baseUrl = import.meta.env.VITE_API_BASEURL;
     // IMP: Add the Signup endpoint url here after backend is completed and also might have to remove the check for userAlreadyExists
-    const signupUrl = `http://localhost:3000/users/register`;
+    const signupUrl = `${baseUrl}/users/register`;
 
     axios
       .post(signupUrl, userDetails)
