@@ -10,7 +10,7 @@ export default function ShipmentDetails() {
   const { shipmentId } = useParams();
   const navigate = useNavigate();
 
-  const [shipmentDetails, setshipmentDetails] = useState({})
+  const [shipmentDetails, setshipmentDetails] = useState({});
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
@@ -19,41 +19,44 @@ export default function ShipmentDetails() {
     } else {
       const baseUrl = import.meta.env.VITE_API_BASEURL;
       const shipmentDetailsUrl = `${baseUrl}/hubs/shipmentDetails/${shipmentId}`;
-      const axiosConfig = generateAuthHeader()
-      axios.get(shipmentDetailsUrl, axiosConfig)
-      .then(response => {
-        console.log(response.data);
-        setshipmentDetails(response.data)
-      })
-      .catch(err => {
-        console.log(err);
-      })
+      const axiosConfig = generateAuthHeader();
+      axios
+        .get(shipmentDetailsUrl, axiosConfig)
+        .then((response) => {
+          console.log(response.data);
+          setshipmentDetails(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
+      const citiesUrl = `${baseUrl}/cities/`;
 
-    const citiesUrl = `${baseUrl}/cities/`;
-
-    axios
-      .get(citiesUrl, axiosConfig)
-      .then((response) => {
-        console.log(response.data);
-        setCities(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Uh-oh, couldn't reach our servers at the moment. We regret the inconvenience caused :(")
-        navigate("/")
-      });
+      axios
+        .get(citiesUrl, axiosConfig)
+        .then((response) => {
+          console.log(response.data);
+          setCities(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(
+            "Uh-oh, couldn't reach our servers at the moment. We regret the inconvenience caused :("
+          );
+          navigate("/");
+        });
     }
-  }, []);
-
-  useEffect(() => {
-    
   }, []);
 
   return (
     <>
       <Navbar type="loggedin" />
-      <ShipmentDetailsCard shipmentDetails={shipmentDetails} cities={cities} />
+      <div className="flex flex-col items-center">
+        <ShipmentDetailsCard
+          shipmentDetails={shipmentDetails}
+          cities={cities}
+        />
+      </div>
     </>
   );
 }

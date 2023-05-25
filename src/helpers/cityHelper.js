@@ -32,6 +32,8 @@ export function getCityCoordinatesByID(cityId, cities) {
     longitude: 0.0,
   };
 
+  if (!cities) return null
+  
   for (let i = 0; i < cities.length; i++) {
     if (cities[i]._id === cityId) {
       coordinates.latitude = cities[i].latitude;

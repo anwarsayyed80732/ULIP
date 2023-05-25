@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { capitalize } from "../../helpers/wordHelper";
-import { getCityNameByID } from "../../helpers/cityHelper";
+import {
+  getCityCoordinatesByID,
+  getCityNameByID,
+} from "../../helpers/cityHelper";
 import { getDisplayDate } from "../../helpers/dateHelper";
+import ShipmentMap from "./ShipmentMap";
 
 export default function ShipmentDetailsCard({ shipmentDetails, cities }) {
   const [statusString, setStatusString] = useState("");
+  const [hasCitiesToMap, setHasCitiesToMap] = useState(false);
 
   useEffect(() => {
     if (shipmentDetails.status === "PAST") {
       setStatusString("Completed");
+      setHasCitiesToMap(true);
     } else if (shipmentDetails.status === "ONGOINGTOHUB") {
       setStatusString(`Ongoing to ${shipmentDetails.hub.name}`);
+      console.log("Here");
+      setHasCitiesToMap(true);
+      console.log("hasCities ", hasCitiesToMap);
     } else if (shipmentDetails.status === "ONGOINGTODESTINATION") {
       setStatusString(
         `Passed ${shipmentDetails.hub.name} on the way to ${getCityNameByID(
           shipmentDetails.destination
         )}`
       );
+      setHasCitiesToMap(true);
     } else {
       setStatusString("Upcoming; Hub not assigned");
     }
@@ -85,10 +95,22 @@ export default function ShipmentDetailsCard({ shipmentDetails, cities }) {
           <div className="grid grid-cols-3  mt-2">
             <span className="whitespace-nowrap text-start">Allocated Hub</span>
             <span className="">:</span>
-            <span className="ml-2 text-end text-orange-primary">{shipmentDetails.hub.name}</span>
+            <span className="ml-2 text-end text-orange-primary">
+              {shipmentDetails.hub.name}
+            </span>
           </div>
         )}
       </div>
+
+      {hasCitiesToMap && (
+        <ShipmentMap
+          citiesToMap={[
+            getCityCoordinatesByID(shipmentDetails.source, cities),
+            getCityCoordinatesByID(shipmentDetails.hub._id, cities),
+            getCityCoordinatesByID(shipmentDetails.destination, cities),
+          ]}
+        />
+      )}
     </div>
   );
 }
