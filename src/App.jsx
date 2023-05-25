@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Nextpage from "./pages/Nextpage";
+import ShipmentDetails from "./pages/ShipmentDetails";
 
 
 function App() {
@@ -15,8 +16,8 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/submitrequest" element={<Nextpage />} />
-    
+      <Route path="/submitrequest/:shipmentId" element={<Nextpage />} />
+      <Route path="/shipments/:shipmentId" element={<ShipmentDetails />} />
     </Routes>
   );
 }

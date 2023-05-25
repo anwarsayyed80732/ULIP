@@ -52,7 +52,7 @@ export default function ShipmentRequest({ cities }) {
 
     if (
       confirm(
-        "Are you sure you want to continue the shipment? \nOnce submitted you cannot cancel the request"
+        "Are you sure you want to submit the shipment request? \nOnce submitted you cannot cancel or edit the request"
       ) == true
     ) {
       const axiosConfig = generateAuthHeader();
@@ -60,7 +60,10 @@ export default function ShipmentRequest({ cities }) {
       const shipmentRequestUrl = `${baseUrl}/hubs/addshipment`;
       axios
         .post(shipmentRequestUrl, shipmentDetails, axiosConfig)
-        .then((response) => console.log(response))
+        .then((response) => {
+          console.log(response)
+          navigate(`/submitrequest/${response.data.data.shipmentId}`)
+        })
         .catch((err) => {
           console.log(err);
           alert(
@@ -68,8 +71,6 @@ export default function ShipmentRequest({ cities }) {
           );
           navigate("/");
         });
-    } else {
-      Navigate(0);
     }
   };
 

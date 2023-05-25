@@ -3,8 +3,14 @@ import { capitalize } from "../../helpers/wordHelper";
 import { getDisplayDate } from "../../helpers/dateHelper";
 import ButtonSecondary from "../atoms/ButtonSecondary";
 import { getCityNameByID } from "../../helpers/cityHelper";
+import { useNavigate } from "react-router-dom";
 
 export default function ShipmentCard({ shipmentDetails, cities }) {
+  const navigate = useNavigate();
+  const handleOnClick = (e) => {
+    e.preventDefault();
+    navigate(`/shipments/${shipmentDetails._id}`);
+  };
 
   return (
     <div className="m-5 p-4 flex flex-col items-start justify-center min-h-[10vh] min-w-[90vw] md:min-w-[70vw] bg-background-secondary rounded-xl">
@@ -45,14 +51,13 @@ export default function ShipmentCard({ shipmentDetails, cities }) {
           </div>
 
           {/* IMP: After backend is completed, add a handle click for this button */}
-          <div className="mt-2 md:mt-0">
+          <div className="mt-2 md:mt-0" onClick={handleOnClick}>
             <ButtonSecondary text="View Details" size="lg" />
           </div>
         </div>
       ) : (
         <p className="text-xl">Loading</p>
-      )
-    }
+      )}
     </div>
   );
 }

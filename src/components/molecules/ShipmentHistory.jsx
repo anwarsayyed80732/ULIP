@@ -32,7 +32,7 @@ export default function ShipmentHistory({ cities }) {
     axios
       .get(historyUrl, axiosConfig)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setShipmentList(response.data.shipmentDetails);
       })
       .catch((err) => {
@@ -47,7 +47,7 @@ export default function ShipmentHistory({ cities }) {
    */
   const checkShipmentStatus = () => {
     shipmentList.forEach((shipmentDetails) => {
-      console.log(shipmentDetails);
+      // console.log(shipmentDetails);
       if (shipmentDetails.status.startsWith("PAST")) {
         setHasShipmentStatus((currentState) => ({
           ...currentState,
