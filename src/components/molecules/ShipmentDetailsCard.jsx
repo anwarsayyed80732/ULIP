@@ -23,7 +23,8 @@ export default function ShipmentDetailsCard({ shipmentDetails, cities }) {
     } else if (shipmentDetails.status === "ONGOINGTODESTINATION") {
       setStatusString(
         `Passed ${shipmentDetails.hub.name} on the way to ${getCityNameByID(
-          shipmentDetails.destination
+          shipmentDetails.destination,
+          cities
         )}`
       );
       setHasCitiesToMap(true);
